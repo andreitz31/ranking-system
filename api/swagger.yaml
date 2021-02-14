@@ -1,0 +1,109 @@
+swagger: '2.0'
+info:
+  version: '1.0.0'
+  title: Ranking
+schemes: [http]
+host: localhost
+basePath: /v1
+consumes: [application/json]
+produces: [application/json]
+paths:
+  /add/score/playerId/{playerId}/score/{points}/isRelative/{isRelative}:
+    post:
+      tags: [top]
+      summary: 'Add a player score'
+      description: 'It adds a player score'
+      operationId: addPlayer
+      parameters:
+        - type: integer
+          name: playerId
+          in: path
+          required: true
+        - type: string
+          name: points
+          in: path
+          required: true
+        - type: boolean
+          name: isRelative
+          in: path
+          required: true
+      responses:
+        200:
+          description: 'List add score  players'
+          schema:
+            $ref: '#/definitions/Player'
+        400:
+          description: Bad Request
+        404:
+          description: Players Not Found
+        500:
+          schema:
+            type: string
+          description: Server Error
+
+  /top/{number}:
+    get:
+      tags: [top]
+      summary: 'Get top x players'
+      description: 'It returns a list of the first x players from the top'
+      operationId: topList
+      parameters:
+        - type: integer
+          name: number
+          in: path
+          required: true
+      responses:
+        200:
+          description: 'List the top players'
+          schema:
+            $ref: '#/definitions/PlayersList'
+        400:
+          description: Bad Request
+        404:
+          description: Players Not Found
+        500:
+          schema:
+            type: string
+          description: Server Error
+  /top/position/{position}/players/{players}:
+    get:
+      tags: [top]
+      summary: 'Get relative top x players'
+      description: 'It returns a list of the first x players from the top relative to a position'
+      operationId: topListRelative
+      parameters:
+        - type: integer
+          name: position
+          in: path
+          required: true
+        - type: integer
+          name: players
+          in: path
+          required: true
+      responses:
+        200:
+          description: 'List the top players relative to a position'
+          schema:
+            $ref: '#/definitions/PlayersList'
+        400:
+          description: Bad Request
+        404:
+          description: Players Not Found
+        500:
+          schema:
+            type: string
+          description: Server Error
+definitions:
+  PlayersList:
+    type: array
+    items:
+      $ref: '#/definitions/Player'
+  Player:
+    type: object
+    properties:
+      Id:
+        type: integer
+      Name:
+        type: string
+      TotalScore:
+        type: integer
