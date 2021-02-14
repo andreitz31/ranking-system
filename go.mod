@@ -10,5 +10,6 @@ require (
 	github.com/go-openapi/strfmt v0.20.0
 	github.com/go-openapi/swag v0.19.14
 	github.com/jessevdk/go-flags v1.4.0
+	github.com/stretchr/testify v1.6.1
 	golang.org/x/net v0.0.0-20210119194325-5f4716e94777
 )
